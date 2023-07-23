@@ -47,7 +47,7 @@ const postEmployer = async (req,res) => {
     };
     try {
         const result = await tyonantajaModel.insertTyonantaja(newTyonantaja);
-        res.status(201).json({message: "new user added"})
+        res.redirect("/employerregistration.html");
     }catch (error){
         console.error("error",error.message);
         res.status(500).json({error: 500, message: error.message});

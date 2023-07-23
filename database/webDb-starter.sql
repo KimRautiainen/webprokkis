@@ -1,3 +1,5 @@
+CREATE DATABASE webDb;
+USE webDb
 CREATE TABLE `Työntekijä`
 (
   `tyontekija_id` INT NOT NULL,
