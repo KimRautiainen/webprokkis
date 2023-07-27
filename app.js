@@ -9,8 +9,10 @@ const session = require('express-session');
 const app = express();
 const port = 3000;
 
-
-
+const http = require('http');
+const socketIO = require('socket.io');
+const server = http.createServer(app);
+const io = socketIO(server);
 // Log middleware
 app.use((req,res,next) => {
     console.log(Date.now() + ': request: ' + req.method + '' + req.path)
@@ -36,6 +38,16 @@ app.use(express.static('contactus'));
 app.use(express.static('terms'));
 app.use(express.static('privacypolicy'));
 app.use(express.static('uploads'));
+app.use(express.static('chat'));
+app.use(express.static('webprokkis'));
+
+
+// Set the MIME type for .js files to "text/javascript"
+app.use(express.static(__dirname, { setHeaders: (res, path) => {
+        if (path.endsWith('.js')) {
+            res.setHeader('Content-Type', 'text/javascript');
+        }
+    }}));
 
 
 // Serve image files
@@ -55,4 +67,25 @@ app.use('/user', passport.authenticate('jwt', {session: false}), userRoute);
 app.use('/employer', tyonantajaRoute);
 //app.use('/employer', passport.authenticate('jwt', {session: false}),tyonantajaRoute);
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+// Socket.IO connection handling
+io.on('connection', (socket) => {
+    console.log('A user connected.');
+
+    // Add your chat-related event handlers here
+    socket.on('chat message', (msg) => {
+        console.log('Message:', msg);
+        io.emit('chat message', msg); // Broadcast the message to all connected clients
+    });
+
+    socket.on('disconnect', () => {
+        console.log('A user disconnected.');
+    });
+});
+// Serve the socket.io.js file with the correct MIME type
+app.get('/socket.io.js', (req, res) => {
+    res.set('Content-Type', 'application/javascript');
+    res.sendFile(__dirname + '/node_modules/socket.io/client-dist/socket.io.js');
+});
+
+//app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+server.listen(port, () => console.log(`Example app listening on port ${port}!`));

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Jobseeking Platform Chat</title>
+  <link rel="stylesheet" href="chat.css">
+</head>
+<body>
+<!-- Chat container -->
+<div class="chat-container">
+  <!-- Message display area -->
+  <div class="message-box">
+    <ul id="messages"></ul>
+  </div>
+  <!-- Chat input area -->
+  <div class="input-box">
+    <input type="text" id="input" placeholder="Type your message here..." />
+    <button id="sendButton">Send</button>
+  </div>
+</div>
+
+<!-- Socket.IO library -->
+<script src="socket.io.js"></script>
+<!-- Your client-side JavaScript code -->
+<script src="chat.js"></script>
+</body>
+</html>
