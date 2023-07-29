@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobSeeker</title>
+    <link rel="icon" type="image/x-icon" href="/wifi.png" />
+    <link rel="stylesheet" href="/swipe/swipe.css">
+    <link rel="stylesheet" href="/messages.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@200;300;400;500;600;700;800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylsheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/c4254e24a8.js" crossorigin="anonymous"></script>
+    <script src="messages.js"></script>
+    <!--T-->
+</head>
+<header>
+    <div id="logo" class="logotext">JobSeeker
+
+    </div>
+    <ul class="navbar">
+
+        <li><a href="/contactus.html">Contact us</a></li>
+        <li><a href="#">Messages</a></li>
+        <li><a href="/terms.html">Terms</a></li>
+        <li><a href="/privacy.html">Privacy policy</a></li>
+    </ul>
+    <div  class="main">
+        <a id="kayttaja" href="/profileedit/profileedit.html" class="user"><i class="fa fa-user"></i>Testi Testaaja</a>
+        <form action="http://localhost:3000/auth/logout" method="get" name="form">
+            <a id="logout">Log Out</a>
+        </form>
+        <div class="fa fa-bars" id="menu-icon"></div>
+    </div>
+</header>
+<body>
+<h1>My Messages</h1>
+<!-- Container to display all conversations -->
+<div id="conversations">
+    <!-- Conversations will be dynamically added here -->
+</div>
+<!-- Container to display the selected conversation's messages -->
+<div id="messages">
+    <!-- Messages of the selected conversation will be dynamically added here -->
+</div>
+</body>
+</html>

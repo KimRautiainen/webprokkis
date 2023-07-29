@@ -1,0 +1,40 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    text-align: center;
+    display: flex;
+}
+
+#conversations {
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    display: flex;
+}
+
+#conversations div {
+    cursor: pointer;
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+}
+
+#conversations div:last-child {
+    border-bottom: none;
+}
+
+#messages {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    display: flex;
+}
+#avatar {
+
+}
+#last-message{
+
+}
