@@ -52,16 +52,12 @@ CREATE TABLE `MEDIA`
 ALTER TABLE `MEDIA`
   MODIFY `media_id` int(11) NOT NULL AUTO_INCREMENT;
 
-CREATE TABLE `Pyyhkäsy`
-(
-  `pyyhkäsySuunta-TT` INT NOT NULL,
-  `pyyhkäsySuunta-TA` INT NOT NULL,
-  `timestamp` INT NOT NULL,
-  `tyontekija_id` INT NOT NULL,
-  `y-tunnus` INT NOT NULL,
-  PRIMARY KEY (`tyontekija_id`, `y-tunnus`),
-  FOREIGN KEY (`tyontekija_id`) REFERENCES `Työntekijä`(`tyontekija_id`),
-  FOREIGN KEY (`y-tunnus`) REFERENCES `Työnantaja`(`y-tunnus`)
+
+ CREATE TABLE matches (
+   `id` INT AUTO_INCREMENT PRIMARY KEY,
+   `tyontekija_id` INT NOT NULL,
+   `y-tunnus` INT NOT NULL,
+   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `onAmmattia`

@@ -100,6 +100,14 @@ const getUserLogin = async (email) => {
     }
 };
 
+const insertSwipe = async (userId) => {
+    try {
+        console.log(userId);
+    }catch (e) {
+        console.log(e)
+    }
+}
+
 
 module.exports = {
     getAllUsers,
@@ -108,4 +116,5 @@ module.exports = {
     modifyUser,
     deleteUser,
     getUserLogin,
+    insertSwipe
 };

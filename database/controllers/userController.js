@@ -90,73 +90,6 @@ const putUser = async (req, res) => {
     }
 };
 
-/*
-const putUser = async (req, res) => {
-    try {
-        // Get the user ID from the request parameters
-        const userId  = req.body.id;
-
-        // Get the authenticated user object from req.user
-        const user = req.user;
-
-
-        // Check if the user exists
-        if (!user) {
-            return res.status(401).json({ message: 'Unauthorized' });
-        }
-
-        // Call your update user function and pass the authenticated user object
-        const result = await userModel.modifyUser(userId, data, user)
-        console.log("UserID: " + userId);
-        console.log("RequestBody: " + req.body);
-        console.log("request.user: " + user);
-
-        // Return the updated user object
-        return res.status(200).json(result);
-    } catch (error) {
-        console.error(error);
-        return res.status(500).json({ message: 'Internal server error' });
-    }
-};
-*/
-/*
-const putUser = async (req, res) => {
-    try {
-        const userId = req.body.id;
-        console.log("userid: " + userId);
-        const user = req.body.data;
-
-        console.log(user);
-        console.log(req.body);
-        const result = await userModel.modifyUser(userId, user);
-        res.status(200).json({ message: "User modified" });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Internal server error" });
-    }
-};
-
- */
-/*
-const putUser = async (req,res) => {
-
-
-    const user = req.body;
-    console.log("request body is controller" + user);
-    try {
-        const result = await userModel.modifyUser(user);
-        res.status(200).json({message: "user modified"});
-    }
-    catch (e){
-        console.error("error", e.message);
-        res.status(500).json({error: 500, message: e.message});
-    }
-
-}
-
-
- */
-
 const deleteUser = async (req,res) => {
 
     try {
@@ -175,5 +108,17 @@ const checkToken = (req, res) => {
     res.json({user: req.user});
 };
 
-const userController = {getUserList, getUser, postUser, putUser, deleteUser, checkToken};
+const postSwipe = async (req,res) => {
+    try {
+        const userId = req.body.userId;
+        const result = await userModel.insertSwipe(userId);
+
+        res.status(200).json({ message: 'Match created successfully' });
+    }catch (e){
+        res.status(200).json({ message: 'Error' + e });
+    }
+
+}
+
+const userController = {getUserList, getUser, postUser, putUser, deleteUser, checkToken, postSwipe};
 module.exports = userController;

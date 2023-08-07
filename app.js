@@ -66,7 +66,7 @@ app.use('/user', passport.authenticate('jwt', {session: false}), userRoute);
 // Use the tyonantajaRoute for handling tyonantaja-related routes under the '/employer' endpoint.
 app.use('/employer', tyonantajaRoute);
 //app.use('/employer', passport.authenticate('jwt', {session: false}),tyonantajaRoute);
-
+app.use('/createMatch', userRoute);
 // Socket.IO connection handling
 io.on('connection', (socket) => {
     console.log('A user connected.');

@@ -31,6 +31,10 @@ const createUserCards = (users) => {
         const li = document.createElement('li');
         li.classList.add('tinder--card');
 
+        // Store the user ID as a data attribute on the card element
+        const dataSet = li.dataset.userId = user['y-tunnus']
+        console.log(dataSet);
+
         const img = document.createElement('img');
         img.src = url + '/uploads/' + user.filename;
         img.alt = user.nimi;
@@ -117,54 +121,7 @@ const getUser = async () => { // Define an asynchronous function getUser
 getUser(); // Call the getUser function to retrieve and display the employer users.
 
 
-/*
-// AJAX call to get employer data from database
-const getEmployer = async () => {
-    try {
-        const response = await fetch(url + '/employer');
-        const users = await response.json();
-        //console.log(users);
-         createUserCards(users);
-    } catch (e) {
-        console.log(e.message);
-    }
-};
-getEmployer();
-*/
-/*
-const getUser = async () => {
-    const token = sessionStorage.getItem('token'); // retrieve token from local storage or wherever it is stored
-    try {
-        const response = await fetch(url + '/user', {
-            headers: {
-                'Authorization': 'Bearer ' + token // include token in headers
-            }
-        });
-        console.log(response);
-        const users = await response.json();
-        console.log(users);
-        createUserCards(users);
-    } catch (error) {
-        console.log(error.message);
-    }
-};
-getUser();
 
-*/
-
-/*
-// AJAX call to get information of employers
-const getEmployer = async () => {
-    try {
-        const response = await fetch(url + '/employer');
-        const employers = await response.json();
-        console.log(employers);
-        userInfo(employers);
-    } catch (e) {
-        console.log(e.message);
-    }
-};
-getEmployer(); */
 
 
 function initCards(card, index) {
@@ -236,8 +193,8 @@ allCards.forEach(function (el){
     });
 });
 
-function createButtonListener(love){
-    return function (event) {
+function createButtonListener(love) {
+    return async function (event) {
         let cards = document.querySelectorAll('.tinder--card:not(.removed)');
         let moveOutWidth = document.body.clientWidth * 1.5;
 
@@ -247,13 +204,37 @@ function createButtonListener(love){
 
         card.classList.add('removed');
 
-        if (love){
+        if (love) {
             card.style.transform = 'translate(' + moveOutWidth + 'px, -100px) rotate(-30deg)';
 
+            try {
+                const token = sessionStorage.getItem('token'); // Get the user's token from session storage or wherever you store it
+                const userId = card.dataset.userId; // Get y-tunnus from dataset
 
+                const response = await fetch('http://localhost:3000/createMatch', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + token // Include the user's token in the request headers for authentication
+                    },
+                    body: JSON.stringify({ userId }) // Send the user ID of the matched user in the request body
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log(data.message); // Match created successfully message from the server
+                    // You can perform any other UI updates or actions here upon successful match creation
+                } else {
+                    const errorData = await response.json();
+                    console.log(errorData.message); // Error message from the server
+                    // Handle any error cases or show error messages to the user
+                }
+            } catch (error) {
+                console.error('Error creating match:', error.message);
+                // Handle any fetch or other errors that might occur
+            }
         } else {
             card.style.transform = 'translate(-' + moveOutWidth + 'px, -100px) rotate(30deg)';
-
         }
 
         initCards();
